@@ -9,7 +9,7 @@ const testimonials = [
   {
     name: 'Sarah Johnson',
     role: 'CEO, TechStart Solutions',
-    content: 'Working with [Your Name] was a game-changer for our startup. They took our vague idea and turned it into a polished, scalable product that our users love. The attention to detail and communication throughout the project was exceptional.',
+    content: 'Working with [Julius Tech Hub] was a game-changer for our startup. They took our vague idea and turned it into a polished, scalable product that our users love. The attention to detail and communication throughout the project was exceptional.',
     rating: 5,
     project: 'SaaS Platform Development',
     avatar: '/avatars/sarah.jpg',
