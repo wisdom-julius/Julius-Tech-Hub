@@ -1,9 +1,9 @@
-// components/navigation.tsx
-'use client'
+﻿'use client'
 
 import { motion } from 'framer-motion'
 import { Menu, X, ArrowRight } from 'lucide-react'
 import { useState } from 'react'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
@@ -45,18 +45,20 @@ export default function Navigation({ scrolled }: NavigationProps) {
       >
         <div className="container mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
-            {/* Logo */}
             <button 
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="flex items-center space-x-2 group"
             >
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center font-bold text-white">
-                JTH
-              </div>
+              <Image 
+                src="/logo.svg" 
+                alt="Julius Tech Hub Logo" 
+                width={40} 
+                height={40}
+                className="w-9 h-9 lg:w-10 lg:h-10 transition-transform duration-300 group-hover:scale-110"
+              />
               <span className="font-semibold text-lg hidden sm:block">Julius Tech Hub</span>
             </button>
 
-            {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-1">
               {navItems.map((item) => (
                 <button
@@ -69,18 +71,16 @@ export default function Navigation({ scrolled }: NavigationProps) {
               ))}
             </div>
 
-            {/* CTA Button */}
             <div className="hidden lg:block">
               <Button 
                 onClick={() => scrollToSection('#contact')}
                 className="group"
               >
-                Let's Talk
+                Let&apos;s Talk
                 <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </div>
 
-            {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="lg:hidden p-2 text-foreground hover:bg-secondary rounded-md"
@@ -91,7 +91,6 @@ export default function Navigation({ scrolled }: NavigationProps) {
         </div>
       </motion.nav>
 
-      {/* Mobile Menu */}
       {mobileMenuOpen && (
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -118,7 +117,7 @@ export default function Navigation({ scrolled }: NavigationProps) {
                 className="mt-8 w-full text-lg"
                 size="lg"
               >
-                Let's Talk
+                Let&apos;s Talk
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </div>

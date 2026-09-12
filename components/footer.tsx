@@ -1,3 +1,5 @@
+﻿'use client'
+
 export default function Footer() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -8,10 +10,12 @@ export default function Footer() {
       <div className="container mx-auto max-w-6xl px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           <div>
-            <button onClick={scrollToTop} className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center font-bold text-white">
-                JTH
-              </div>
+            <button onClick={scrollToTop} className="flex items-center space-x-2 mb-4 group">
+              <img 
+                src="/logo.svg" 
+                alt="Julius Tech Hub Logo" 
+                className="w-10 h-10 transition-transform duration-300 group-hover:scale-110"
+              />
               <span className="font-semibold text-lg">Julius Tech Hub</span>
             </button>
             <p className="text-sm text-muted-foreground leading-relaxed">
@@ -31,18 +35,18 @@ export default function Footer() {
 
           <div>
             <h3 className="font-semibold mb-4">Get in Touch</h3>
-            <a href="mailto:hello@Julius Tech Hub" className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4">
+            <a href="mailto:juliuswisdom224@gmail.com" className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4">
               <span>Email:</span>
-              <span>hello@juliuswisdom224.com</span>
+              <span>juliuswisdom224@gmail.com</span>
             </a>
             <div className="flex space-x-3">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="px-3 py-2 bg-secondary rounded-lg hover:bg-secondary/70 transition-colors text-sm">
+              <a href="https://github.com/wisdom-julius" target="_blank" rel="noopener noreferrer" className="px-3 py-2 bg-secondary rounded-lg hover:bg-secondary/70 transition-colors text-sm">
                 GitHub
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="px-3 py-2 bg-secondary rounded-lg hover:bg-secondary/70 transition-colors text-sm">
+              <a href="https://linkedin.com/in/wisdom-julius" target="_blank" rel="noopener noreferrer" className="px-3 py-2 bg-secondary rounded-lg hover:bg-secondary/70 transition-colors text-sm">
                 LinkedIn
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="px-3 py-2 bg-secondary rounded-lg hover:bg-secondary/70 transition-colors text-sm">
+              <a href="https://twitter.com/wisdom-julius" target="_blank" rel="noopener noreferrer" className="px-3 py-2 bg-secondary rounded-lg hover:bg-secondary/70 transition-colors text-sm">
                 Twitter
               </a>
             </div>
