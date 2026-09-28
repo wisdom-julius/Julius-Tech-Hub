@@ -18,40 +18,40 @@ const techCategories = [
     icon: Code2,
     title: 'Frontend',
     technologies: [
-      { name: 'React', level: 95, color: 'bg-blue-500' },
-      { name: 'Next.js', level: 90, color: 'bg-purple-500' },
-      { name: 'TypeScript', level: 85, color: 'bg-cyan-500' },
-      { name: 'Tailwind CSS', level: 95, color: 'bg-teal-500' }
+      { name: 'React', level: 95, color: 'bg-amber-300' },
+      { name: 'Next.js', level: 90, color: 'bg-amber-400' },
+      { name: 'TypeScript', level: 85, color: 'bg-yellow-500' },
+      { name: 'Tailwind CSS', level: 95, color: 'bg-amber-500' }
     ]
   },
   {
     icon: Server,
     title: 'Backend',
     technologies: [
-      { name: 'Node.js', level: 90, color: 'bg-green-500' },
-      { name: 'Python', level: 80, color: 'bg-yellow-500' },
-      { name: 'GraphQL', level: 75, color: 'bg-pink-500' },
-      { name: 'REST APIs', level: 95, color: 'bg-orange-500' }
+      { name: 'Node.js', level: 90, color: 'bg-amber-300' },
+      { name: 'Python', level: 80, color: 'bg-amber-400' },
+      { name: 'GraphQL', level: 75, color: 'bg-yellow-500' },
+      { name: 'REST APIs', level: 95, color: 'bg-amber-500' }
     ]
   },
   {
     icon: Database,
     title: 'Databases',
     technologies: [
-      { name: 'PostgreSQL', level: 90, color: 'bg-blue-500' },
-      { name: 'MongoDB', level: 85, color: 'bg-green-500' },
-      { name: 'Redis', level: 80, color: 'bg-red-500' },
-      { name: 'Prisma ORM', level: 85, color: 'bg-purple-500' }
+      { name: 'PostgreSQL', level: 90, color: 'bg-amber-300' },
+      { name: 'MongoDB', level: 85, color: 'bg-amber-400' },
+      { name: 'Redis', level: 80, color: 'bg-yellow-500' },
+      { name: 'Prisma ORM', level: 85, color: 'bg-amber-500' }
     ]
   },
   {
     icon: Cloud,
     title: 'DevOps & Cloud',
     technologies: [
-      { name: 'AWS', level: 85, color: 'bg-orange-500' },
-      { name: 'Docker', level: 80, color: 'bg-blue-500' },
-      { name: 'CI/CD', level: 85, color: 'bg-green-500' },
-      { name: 'Vercel', level: 90, color: 'bg-gray-500' }
+      { name: 'AWS', level: 85, color: 'bg-amber-300' },
+      { name: 'Docker', level: 80, color: 'bg-amber-400' },
+      { name: 'CI/CD', level: 85, color: 'bg-yellow-500' },
+      { name: 'Vercel', level: 90, color: 'bg-amber-500' }
     ]
   }
 ]

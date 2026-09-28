@@ -103,7 +103,7 @@ export default function Testimonials() {
           {/* Author Info */}
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-lg">
+              <div className="w-12 h-12 bg-gradient-to-br from-amber-300 to-yellow-600 rounded-full flex items-center justify-center text-primary-foreground font-semibold text-lg">
                 {testimonials[currentIndex].name.charAt(0)}
               </div>
               <div>

@@ -1,5 +1,7 @@
 ﻿'use client'
 
+import Image from 'next/image'
+
 export default function Footer() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -11,10 +13,12 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           <div>
             <button onClick={scrollToTop} className="flex items-center space-x-2 mb-4 group">
-              <img 
-                src="/logo.svg" 
-                alt="Julius Tech Hub Logo" 
-                className="w-10 h-10 transition-transform duration-300 group-hover:scale-110"
+              <Image
+                src="/logo.svg"
+                alt="Julius Tech Hub Logo"
+                width={71}
+                height={40}
+                className="h-10 w-auto transition-transform duration-300 group-hover:scale-110"
               />
               <span className="font-semibold text-lg">Julius Tech Hub</span>
             </button>

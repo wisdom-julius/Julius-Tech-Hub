@@ -1,31 +1,77 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowRight, Mail, Calendar, MessageSquare, Clock, Shield, Zap, CheckCircle2 } from 'lucide-react'
+import { ArrowRight, Mail, Calendar, MessageSquare, Clock, Shield, Zap, CheckCircle2, AlertCircle } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { useLocalStorage } from '@/hooks/use-local-storage'
 import emailjs from '@emailjs/browser'
 
+// These fall back to the existing working values so the form keeps
+// sending mail even if the env vars below aren't set yet. To rotate keys
+// without a code change, add a .env.local (see .env.local.example) with:
+//   NEXT_PUBLIC_EMAILJS_SERVICE_ID
+//   NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
+//   NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'service_sqr6ba8'
+const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'template_40m6s28'
+const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'shz-4cKIsHJzuIsNu'
+
+const initialFormData = {
+  name: '',
+  email: '',
+  projectType: 'Web Application',
+  budget: '$5,000 - $10,000',
+  message: '',
+  // Honeypot: real users never see or fill this field. If it comes back
+  // non-empty, the submission is almost certainly a bot.
+  company: '',
+}
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
 export default function CTASection() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    projectType: 'Web Application',
-    budget: '$5,000 - $10,000',
-    message: ''
-  })
+  // Persisted to localStorage so an accidental refresh or tab close
+  // doesn't lose what the visitor already typed.
+  const [formData, setFormData, clearDraft] = useLocalStorage('contact-form-draft', initialFormData)
+  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
 
+  const validate = () => {
+    const nextErrors: Record<string, string> = {}
+    if (!formData.name.trim()) nextErrors.name = 'Please enter your name.'
+    if (!formData.email.trim()) {
+      nextErrors.email = 'Please enter your email.'
+    } else if (!EMAIL_PATTERN.test(formData.email.trim())) {
+      nextErrors.email = 'Please enter a valid email address.'
+    }
+    if (!formData.message.trim() || formData.message.trim().length < 10) {
+      nextErrors.message = 'Please add a few details about your project (10+ characters).'
+    }
+    setErrors(nextErrors)
+    return Object.keys(nextErrors).length === 0
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setLoading(true)
+    setSubmitError(null)
 
+    // Bot caught the honeypot: pretend success without actually sending.
+    if (formData.company) {
+      setSubmitted(true)
+      clearDraft()
+      return
+    }
+
+    if (!validate()) return
+
+    setLoading(true)
     try {
-      // Replace these with your EmailJS credentials
-      const result = await emailjs.send(
-        'service_sqr6ba8',
-        'template_40m6s28',
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
         {
           from_name: formData.name,
           from_email: formData.email,
@@ -34,22 +80,22 @@ export default function CTASection() {
           message: formData.message,
           to_email: 'juliuswisdom224@gmail.com',
         },
-        'shz-4cKIsHJzuIsNu'
+        EMAILJS_PUBLIC_KEY
       )
       setSubmitted(true)
+      clearDraft()
     } catch (error) {
       console.error('Error sending email:', error)
-      alert('There was an error sending your message. Please try again.')
+      setSubmitError("There was a problem sending your message. Please try again, or email me directly below.")
     } finally {
       setLoading(false)
     }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: '' }))
   }
 
   return (
@@ -128,13 +174,40 @@ export default function CTASection() {
                 </Button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="bg-card border border-border rounded-2xl p-8 space-y-6">
+              <form onSubmit={handleSubmit} noValidate className="bg-card border border-border rounded-2xl p-8 space-y-6">
                 <div>
                   <h3 className="text-xl font-semibold mb-2">Start Your Project</h3>
                   <p className="text-sm text-muted-foreground">
                     Fill out the form and I'll get back to you within 24 hours.
                   </p>
                 </div>
+
+                {/* Honeypot: hidden from real visitors via CSS, invisible to
+                    screen readers via aria-hidden + tabIndex, but bots that
+                    fill every field will trip it. */}
+                <div className="hidden" aria-hidden="true">
+                  <label htmlFor="company">Company</label>
+                  <input
+                    type="text"
+                    id="company"
+                    name="company"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formData.company}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                {submitError && (
+                  <div
+                    role="alert"
+                    aria-live="assertive"
+                    className="flex items-start gap-2 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400"
+                  >
+                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" aria-hidden="true" />
+                    <span>{submitError}</span>
+                  </div>
+                )}
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
@@ -146,9 +219,14 @@ export default function CTASection() {
                       required
                       value={formData.name}
                       onChange={handleChange}
+                      aria-invalid={!!errors.name}
+                      aria-describedby={errors.name ? 'name-error' : undefined}
                       className="w-full px-4 py-2 bg-secondary/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                       placeholder="John Doe"
                     />
+                    {errors.name && (
+                      <p id="name-error" className="mt-1.5 text-xs text-red-400">{errors.name}</p>
+                    )}
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium mb-2">Email Address *</label>
@@ -159,9 +237,14 @@ export default function CTASection() {
                       required
                       value={formData.email}
                       onChange={handleChange}
+                      aria-invalid={!!errors.email}
+                      aria-describedby={errors.email ? 'email-error' : undefined}
                       className="w-full px-4 py-2 bg-secondary/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                       placeholder="john@company.com"
                     />
+                    {errors.email && (
+                      <p id="email-error" className="mt-1.5 text-xs text-red-400">{errors.email}</p>
+                    )}
                   </div>
                 </div>
 
@@ -212,12 +295,17 @@ export default function CTASection() {
                     rows={5}
                     value={formData.message}
                     onChange={handleChange}
+                    aria-invalid={!!errors.message}
+                    aria-describedby={errors.message ? 'message-error' : undefined}
                     className="w-full px-4 py-2 bg-secondary/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all resize-none"
                     placeholder="Tell me about your project, goals, and timeline..."
                   />
+                  {errors.message && (
+                    <p id="message-error" className="mt-1.5 text-xs text-red-400">{errors.message}</p>
+                  )}
                 </div>
 
-                <Button type="submit" size="lg" className="w-full group" disabled={loading}>
+                <Button type="submit" size="lg" className="w-full group" disabled={loading} aria-busy={loading}>
                   {loading ? 'Sending...' : 'Send Message'}
                   {!loading && <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />}
                 </Button>

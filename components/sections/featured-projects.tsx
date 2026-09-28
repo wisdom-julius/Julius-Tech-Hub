@@ -24,11 +24,12 @@ const projects = [
     description: 'Description of what this project does.',
     technologies: ['React', 'Node.js', 'MongoDB'],
     images: [
-      // '/projects/project-2-1.jpg',
-      // '/projects/project-2-2.jpg',
+      '/projects/project-4.jpg',
+      '/projects/project-5.jpg',
+      '/projects/project-6.jpg',
     ],
-    liveUrl: 'https://example.com',
-    githubUrl: 'https://github.com/wisdom-julius/project-2',
+    liveUrl: 'joviters-kitchen.netlify.app',
+    // githubUrl: 'https://github.com/wisdom-julius/project-2',
     featured: false,
   },
   {

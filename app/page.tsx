@@ -2,7 +2,7 @@
 'use client'
 
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { useRef, useState, useEffect } from 'react'
+import { useRef } from 'react'
 import Navigation from '@/components/navigation'
 import Hero from '@/components/sections/hero'
 import TrustedBy from '@/components/sections/trusted-by'
@@ -14,18 +14,11 @@ import TechStack from '@/components/sections/tech-stack'
 import FAQ from '@/components/sections/faq'
 import CTASection from '@/components/sections/cta-section'
 import Footer from '@/components/footer'
+import { useScrollPosition } from '@/hooks/use-scroll-position'
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  const { scrolledPastThreshold: scrolled } = useScrollPosition(50)
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -44,8 +37,8 @@ export default function Home() {
       />
       
       {/* Ambient glow effects */}
-      <div className="fixed top-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-3xl pointer-events-none animate-pulse-glow" />
-      <div className="fixed bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-3xl pointer-events-none animate-pulse-glow" />
+      <div className="fixed top-[-20%] left-[-10%] w-[500px] h-[500px] bg-cyan-400/5 rounded-full blur-3xl pointer-events-none animate-pulse-glow" />
+      <div className="fixed bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-3xl pointer-events-none animate-pulse-glow" />
       
       <Navigation scrolled={scrolled} />
       

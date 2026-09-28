@@ -20,7 +20,7 @@ const steps = [
     description: 'We start with a deep dive into your business goals, target audience, and technical requirements to create a clear roadmap.',
     deliverables: ['Requirements document', 'Technical architecture', 'Project timeline', 'Success metrics'],
     duration: 'Week 1',
-    color: 'from-blue-500/20 to-cyan-500/20'
+    color: 'from-amber-300/20 to-yellow-600/20'
   },
   {
     icon: PenTool,
@@ -28,7 +28,7 @@ const steps = [
     description: 'I create wireframes and high-fidelity designs that align with your brand and optimize for user experience.',
     deliverables: ['Wireframes', 'UI/UX design', 'Interactive prototype', 'Design system'],
     duration: 'Week 2-3',
-    color: 'from-purple-500/20 to-pink-500/20'
+    color: 'from-yellow-500/20 to-amber-700/20'
   },
   {
     icon: Code2,
@@ -36,7 +36,7 @@ const steps = [
     description: 'Clean, scalable code is written following best practices. Regular updates keep you informed throughout the build.',
     deliverables: ['Working application', 'API integration', 'Database setup', 'Third-party services'],
     duration: 'Week 3-8',
-    color: 'from-green-500/20 to-emerald-500/20'
+    color: 'from-amber-400/20 to-orange-600/20'
   },
   {
     icon: TestTube2,
@@ -44,7 +44,7 @@ const steps = [
     description: 'Comprehensive testing ensures your product works flawlessly across all devices and edge cases.',
     deliverables: ['Bug fixes', 'Performance optimization', 'Cross-browser testing', 'Security audit'],
     duration: 'Week 8-9',
-    color: 'from-orange-500/20 to-red-500/20'
+    color: 'from-amber-300/20 to-yellow-600/20'
   },
   {
     icon: Rocket,
@@ -52,7 +52,7 @@ const steps = [
     description: 'Your product goes live with full support. I ensure smooth deployment and provide training if needed.',
     deliverables: ['Production deployment', 'Documentation', 'Team training', '30-day support'],
     duration: 'Week 10',
-    color: 'from-yellow-500/20 to-amber-500/20'
+    color: 'from-yellow-500/20 to-amber-700/20'
   }
 ]
 

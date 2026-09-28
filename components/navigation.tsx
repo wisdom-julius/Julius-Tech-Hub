@@ -2,10 +2,11 @@
 
 import { motion } from 'framer-motion'
 import { Menu, X, ArrowRight } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { useMediaQuery } from '@/hooks/use-media-query'
 
 interface NavigationProps {
   scrolled: boolean
@@ -21,6 +22,31 @@ const navItems = [
 
 export default function Navigation({ scrolled }: NavigationProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const isDesktop = useMediaQuery('(min-width: 1024px)')
+
+  // Auto-close the mobile menu if the viewport is resized/rotated past the
+  // desktop breakpoint while it's open (e.g. a tablet rotated to landscape).
+  useEffect(() => {
+    if (isDesktop && mobileMenuOpen) setMobileMenuOpen(false)
+  }, [isDesktop, mobileMenuOpen])
+
+  // Close on Escape, and lock body scroll while the full-screen menu is open.
+  useEffect(() => {
+    if (!mobileMenuOpen) return
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMobileMenuOpen(false)
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      document.body.style.overflow = previousOverflow
+    }
+  }, [mobileMenuOpen])
 
   const scrollToSection = (href: string) => {
     setMobileMenuOpen(false)
@@ -52,9 +78,9 @@ export default function Navigation({ scrolled }: NavigationProps) {
               <Image 
                 src="/logo.svg" 
                 alt="Julius Tech Hub Logo" 
-                width={40} 
+                width={71} 
                 height={40}
-                className="w-9 h-9 lg:w-10 lg:h-10 transition-transform duration-300 group-hover:scale-110"
+                className="h-9 w-auto lg:h-10 transition-transform duration-300 group-hover:scale-110"
               />
               <span className="font-semibold text-lg hidden sm:block">Julius Tech Hub</span>
             </button>
@@ -84,8 +110,11 @@ export default function Navigation({ scrolled }: NavigationProps) {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="lg:hidden p-2 text-foreground hover:bg-secondary rounded-md"
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
             </button>
           </div>
         </div>
@@ -93,6 +122,10 @@ export default function Navigation({ scrolled }: NavigationProps) {
 
       {mobileMenuOpen && (
         <motion.div
+          id="mobile-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
