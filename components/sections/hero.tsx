@@ -4,6 +4,7 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, Rocket, Code2, Shield } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import HeroMedia from '@/components/hero-media'
 
 export default function Hero() {
   const scrollToContact = () => {
@@ -15,8 +16,9 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6 lg:px-8 pt-20 pb-16">
-      <div className="container mx-auto max-w-6xl">
+    <section className="relative min-h-screen flex items-center justify-center px-6 lg:px-8 pt-20 pb-16 overflow-hidden">
+      <HeroMedia />
+      <div className="relative z-10 container mx-auto max-w-6xl">
         <div className="text-center space-y-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

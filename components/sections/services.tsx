@@ -11,7 +11,6 @@ import {
   ArrowRight,
   CheckCircle2
 } from 'lucide-react'
-import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 
 const services = [
@@ -22,17 +21,8 @@ const services = [
     features: ['React & Next.js', 'Node.js', 'MongoDB'],
     price: 'From $5,000',
     popular: true,
-    image: '/projects/project-1.jpg',
   },
-  {
-    icon: Smartphone,
-    title: 'MVP Development',
-    description: 'Turn your idea into a market-ready product quickly. Validate your concept with a professional MVP that attracts users and investors.',
-    features: ['Rapid prototyping', 'Lean development', 'User feedback integration', 'Scalable architecture'],
-    price: 'From $3,500',
-    popular: false,
-    image: '',
-  },
+
   {
     icon: Cloud,
     title: 'E-commerce Solutions',
@@ -40,7 +30,6 @@ const services = [
     features: ['Custom storefronts', 'Payment integration', 'Inventory management', 'Analytics & optimization'],
     price: 'From $4,000',
     popular: false,
-    image: '',
   },
   {
     icon: Palette,
@@ -49,7 +38,6 @@ const services = [
     features: ['User-centered design', 'Responsive interfaces', 'Design systems', 'Accessibility focused'],
     price: 'From $2,500',
     popular: false,
-    image: '',
   },
   {
     icon: Gauge,
@@ -58,7 +46,6 @@ const services = [
     features: ['Core Web Vitals', 'Code optimization', 'CDN setup', 'Caching strategies'],
     price: 'From $1,500',
     popular: false,
-    image: '',
   },
   {
     icon: Lock,
@@ -67,7 +54,6 @@ const services = [
     features: ['Architecture review', 'Tech stack selection', 'Code audits', 'Team mentoring'],
     price: 'From $150/hr',
     popular: false,
-    image: '',
   }
 ]
 
@@ -109,32 +95,11 @@ export default function Services() {
                 </div>
               )}
 
-              {/* Service Image */}
-              <div className="relative aspect-[16/10] overflow-hidden bg-secondary/50">
-                {service.image ? (
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-secondary/80 to-secondary/30">
-                    <service.icon className="w-12 h-12 text-primary/30" aria-hidden="true" />
-                  </div>
-                )}
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
-                
-                {/* Icon badge */}
-                <div className="absolute bottom-4 left-6 w-12 h-12 bg-background/90 backdrop-blur-sm border border-border rounded-xl flex items-center justify-center shadow-lg">
-                  <service.icon className="w-6 h-6 text-primary" />
-                </div>
-              </div>
-
               {/* Content */}
-              <div className="p-8 pt-6 flex flex-col flex-1">
+              <div className="p-8 flex flex-col flex-1">
+                <div className="w-12 h-12 mb-6 bg-primary/10 border border-primary/20 rounded-xl flex items-center justify-center">
+                  <service.icon className="w-6 h-6 text-primary" aria-hidden="true" />
+                </div>
                 <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed mb-6">
                   {service.description}

@@ -1,6 +1,7 @@
 ﻿import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import { MotionConfig } from 'framer-motion'
+import Preloader from '@/components/preloader'
 import './globals.css'
 
 const inter = Inter({ 
@@ -89,7 +90,10 @@ export default function RootLayout({
         {/* reducedMotion="user" makes every Framer Motion animation in the
             app honor the OS-level prefers-reduced-motion setting, without
             having to thread a check through every section component. */}
-        <MotionConfig reducedMotion="user">{children}</MotionConfig>
+        <MotionConfig reducedMotion="user">
+          <Preloader />
+          {children}
+        </MotionConfig>
       </body>
     </html>
   )
