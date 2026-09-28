@@ -43,7 +43,7 @@ const projects: Project[] = [
       '/projects/project-5.jpg',
       '/projects/project-6.jpg',
     ],
-    liveUrl: 'https://joviters-kitchen.netlify.app/',
+    liveUrl: 'https://joviter.diamondplay.name.ng/',
     // githubUrl: 'https://github.com/wisdom-julius/project-2',
   },
   {
