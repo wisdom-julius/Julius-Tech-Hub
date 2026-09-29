@@ -37,8 +37,8 @@ export const heroMedia: HeroMediaItem[] = [
   //
   // Christmas banner that only shows Dec 15 – Dec 31:
   // { type: 'image', src: '/hero/christmas.jpg', startDate: '2026-12-15', endDate: '2026-12-31' },
-//   { type: 'image', src: '/banner.jpg' },
-  { type: 'video', src: '/intro.mp4' },
+  { type: 'image', src: '/banner.jpg' },
+//   { type: 'video', src: '/intro.mp4' },
 
 ]
 
